@@ -1,0 +1,652 @@
+[
+  {
+    "id": "question405516884",
+    "number": "1",
+    "type": "单选题",
+    "question": "仅主机模式的网络范围是(        )",
+    "options": [
+      "A. 虚拟机+物理机+外网",
+      "B. 仅物理机访问虚拟机，反向不通",
+      "C. 仅虚拟机之间互通",
+      "D. 虚拟机与物理机互通，无法访问外网"
+    ],
+    "correct_answer": "D"
+  },
+  {
+    "id": "question405516873",
+    "number": "2",
+    "type": "单选题",
+    "question": "VMware Tools的核心作用是(        )",
+    "options": [
+      "A. 扩展虚拟机磁盘容量",
+      "B. 优化虚拟机性能、实现文件拖拽/共享剪贴板",
+      "C. 激活虚拟机系统",
+      "D. 修复虚拟机网络故障"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405516875",
+    "number": "3",
+    "type": "单选题",
+    "question": "以下不属于VMware Workstation安装后默认组件的是(        )",
+    "options": [
+      "A. 虚拟网络编辑器",
+      "B. 虚拟网卡适配器",
+      "C. 云服务器控制台",
+      "D. 虚拟机磁盘管理工具"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405516880",
+    "number": "4",
+    "type": "单选题",
+    "question": "导入OVA失败的常见原因不包括(        )",
+    "options": [
+      "A. 硬件虚拟化未开启",
+      "B. OVA文件损坏",
+      "C. 虚拟机名称重复",
+      "D. 磁盘空间不足"
+    ],
+    "correct_answer": "A"
+  },
+  {
+    "id": "question405516866",
+    "number": "5",
+    "type": "单选题",
+    "question": "VMware Workstation的核心定位是(        )",
+    "options": [
+      "A. 容器化部署工具",
+      "B. 企业级服务器虚拟化平台",
+      "C. 桌面端虚拟机管理软件",
+      "D. 云主机管理工具"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405516900",
+    "number": "6",
+    "type": "单选题",
+    "question": "完整克隆与链接克隆的最大区别是(        )",
+    "options": [
+      "A. 磁盘占用空间",
+      "B. 是否依赖父虚拟机",
+      "C. 操作入口",
+      "D. 克隆速度"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405516881",
+    "number": "7",
+    "type": "单选题",
+    "question": "VMware Workstation默认的三种网络模式不包括(        )",
+    "options": [
+      "A. 仅主机模式",
+      "B. 路由模式",
+      "C. NAT模式",
+      "D. 桥接模式"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405516886",
+    "number": "8",
+    "type": "单选题",
+    "question": "虚拟网络编辑器的核心作用是(        )",
+    "options": [
+      "A. 配置虚拟网卡网段、DHCP、端口转发",
+      "B. 修复物理机网络",
+      "C. 修改虚拟机系统IP",
+      "D. 重启虚拟机网络服务"
+    ],
+    "correct_answer": "A"
+  },
+  {
+    "id": "question405516876",
+    "number": "9",
+    "type": "单选题",
+    "question": "OVA文件的本质是(        )",
+    "options": [
+      "A. 虚拟机单个磁盘文件",
+      "B. 虚拟机配置文件",
+      "C. 虚拟机快照文件",
+      "D. 虚拟机完整打包归档文件"
+    ],
+    "correct_answer": "D"
+  },
+  {
+    "id": "question405516885",
+    "number": "10",
+    "type": "单选题",
+    "question": "切换虚拟机网络模式的入口是(        )",
+    "options": [
+      "A. 虚拟机右键→电源",
+      "B. 编辑虚拟机设置→网络适配器",
+      "C. 虚拟网络编辑器",
+      "D. 文件→首选项"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405516868",
+    "number": "11",
+    "type": "单选题",
+    "question": "VMware Workstation支持的主流操作系统不包括(        )",
+    "options": [
+      "A. Windows全系列",
+      "B. 嵌入式RTOS",
+      "C. macOS(合规场景)",
+      "D. Linux发行版"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405516870",
+    "number": "12",
+    "type": "单选题",
+    "question": "安装VMware Workstation的硬件前提不包含(        )",
+    "options": [
+      "A. 开启主板虚拟化开关",
+      "B. 必须独立显卡",
+      "C. 足够内存与磁盘空间",
+      "D. CPU支持硬件虚拟化(Intel VT-x/AMD-V)"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405516878",
+    "number": "13",
+    "type": "单选题",
+    "question": "导出虚拟机为OVA格式的正确入口是(        )",
+    "options": [
+      "A. 文件→新建虚拟机",
+      "B. 编辑虚拟机设置",
+      "C. 虚拟机右键→导出→导出为OVF/OVA",
+      "D. 虚拟网络编辑器"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405516879",
+    "number": "14",
+    "type": "单选题",
+    "question": "关于OVA与OVF的区别，说法错误的是(        )",
+    "options": [
+      "A. 两者均可跨虚拟化平台迁移",
+      "B. OVA传输更便捷",
+      "C. OVF无法单独导入",
+      "D. OVA是单文件归档，OVF是多文件组合"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405516882",
+    "number": "15",
+    "type": "单选题",
+    "question": "桥接模式的网络特性是(        )",
+    "options": [
+      "A. 虚拟机无网络连接",
+      "B. 虚拟机与物理机处于同一网段，可被局域网其他设备访问",
+      "C. 仅虚拟机与物理机互通，无法访问外网",
+      "D. 虚拟机通过物理机共享上网，独立网段"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405516897",
+    "number": "16",
+    "type": "单选题",
+    "question": "链接克隆的特点是(        )",
+    "options": [
+      "A. 依赖父虚拟机快照，父机删除则克隆机失效",
+      "B. 克隆速度慢",
+      "C. 占用大量磁盘空间",
+      "D. 与父机数据完全独立"
+    ],
+    "correct_answer": "A"
+  },
+  {
+    "id": "question405516893",
+    "number": "17",
+    "type": "单选题",
+    "question": "还原快照的注意事项是(        )",
+    "options": [
+      "A. 还原后快照自动删除",
+      "B. 开机状态无法还原",
+      "C. 还原后快照之后的新增数据会丢失",
+      "D. 还原前无需关闭虚拟机"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405516891",
+    "number": "18",
+    "type": "单选题",
+    "question": "创建快照的正确操作是(        )",
+    "options": [
+      "A. 编辑虚拟机设置",
+      "B. 虚拟机→电源",
+      "C. 虚拟机右键→快照→拍摄快照",
+      "D. 文件→导出"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405516869",
+    "number": "19",
+    "type": "单选题",
+    "question": "关于VMware Workstation版本区分，说法正确的是(        )",
+    "options": [
+      "A. 标准版和专业版功能完全一致",
+      "B. 所有版本均支持OVA导入导出",
+      "C. 专业版支持高级克隆、共享虚拟机功能",
+      "D. 免费版可无限创建虚拟机"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405516890",
+    "number": "20",
+    "type": "单选题",
+    "question": "开机快照(运行中快照)的特点是(        )",
+    "options": [
+      "A. 不支持正在运行的虚拟机创建",
+      "B. 还原后虚拟机直接处于运行状态",
+      "C. 不保存内存状态",
+      "D. 快照文件体积更小"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405516895",
+    "number": "21",
+    "type": "单选题",
+    "question": "虚拟机克隆的核心目的是(        )",
+    "options": [
+      "A. 快速复制虚拟机副本，提升部署效率",
+      "B. 还原系统故障",
+      "C. 压缩磁盘空间",
+      "D. 备份永久数据"
+    ],
+    "correct_answer": "A"
+  },
+  {
+    "id": "question405516892",
+    "number": "22",
+    "type": "单选题",
+    "question": "快照过多导致的问题是(        )",
+    "options": [
+      "A. 虚拟机无法启动",
+      "B. 磁盘空间暴涨、虚拟机运行卡顿",
+      "C. 网络断开",
+      "D. 无法克隆虚拟机"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405516887",
+    "number": "23",
+    "type": "单选题",
+    "question": "NAT模式下，虚拟机访问外网的网关是(        )",
+    "options": [
+      "A. 虚拟NAT设备IP",
+      "B. 虚拟机自身IP",
+      "C. 物理机网关",
+      "D. 路由器IP"
+    ],
+    "correct_answer": "A"
+  },
+  {
+    "id": "question405516899",
+    "number": "24",
+    "type": "单选题",
+    "question": "克隆虚拟机的前提条件是(        )",
+    "options": [
+      "A. 父机必须有快照",
+      "B. 虚拟机处于开机状态",
+      "C. 虚拟机处于关机或挂起状态",
+      "D. 无需关闭VMware Tools"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405516898",
+    "number": "25",
+    "type": "单选题",
+    "question": "适合批量部署测试虚拟机、节省空间的克隆方式是(        )",
+    "options": [
+      "A. 完整克隆",
+      "B. OVA导入",
+      "C. 链接克隆",
+      "D. 快照还原"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405516874",
+    "number": "26",
+    "type": "单选题",
+    "question": "卸载VMware Workstation的正确操作是(        )",
+    "options": [
+      "A. 格式化磁盘",
+      "B. 直接删除安装目录",
+      "C. 结束进程后删除文件",
+      "D. 通过系统控制面板正常卸载"
+    ],
+    "correct_answer": "D"
+  },
+  {
+    "id": "question405516867",
+    "number": "27",
+    "type": "单选题",
+    "question": "以下不属于VMware Workstation核心功能的是(        )",
+    "options": [
+      "A. 虚拟机克隆复制",
+      "B. 物理服务器集群管理",
+      "C. 多虚拟机并行运行",
+      "D. 虚拟机快照备份"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405516877",
+    "number": "28",
+    "type": "单选题",
+    "question": "导入OVA文件时，以下说法正确的是(        )",
+    "options": [
+      "A. 无需检查磁盘空间",
+      "B. 导入速度与CPU核心数无关",
+      "C. 导入后需验证虚拟机硬件兼容性",
+      "D. 可直接修改OVA内部配置"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405516889",
+    "number": "29",
+    "type": "单选题",
+    "question": "关于关机快照，说法正确的是(        )",
+    "options": [
+      "A. 快照文件更小，还原速度更快",
+      "B. 无法创建关机快照",
+      "C. 必须在开机状态下创建",
+      "D. 包含虚拟机内存数据"
+    ],
+    "correct_answer": "A"
+  },
+  {
+    "id": "question405516883",
+    "number": "30",
+    "type": "单选题",
+    "question": "适合虚拟机访问外网、但不想被局域网其他设备访问的模式是(        )",
+    "options": [
+      "A. 无网络模式",
+      "B. NAT模式",
+      "C. 仅主机模式",
+      "D. 桥接模式"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405516872",
+    "number": "31",
+    "type": "单选题",
+    "question": "安装完成后首次启动报错“虚拟化功能未开启”，解决方法是(        )",
+    "options": [
+      "A. 升级电脑内存",
+      "B. 进入BIOS/UEFI开启硬件虚拟化",
+      "C. 重装软件",
+      "D. 更换安装路径"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405516894",
+    "number": "32",
+    "type": "单选题",
+    "question": "删除单个快照的影响是(        )",
+    "options": [
+      "A. 合并增量磁盘，释放空间",
+      "B. 所有快照全部删除",
+      "C. 虚拟机无法启动",
+      "D. 虚拟机数据丢失"
+    ],
+    "correct_answer": "A"
+  },
+  {
+    "id": "question405516896",
+    "number": "33",
+    "type": "单选题",
+    "question": "完整克隆的特点是(        )",
+    "options": [
+      "A. 支持父机删除后正常运行",
+      "B. 依赖父虚拟机存在",
+      "C. 克隆速度快、占用空间小",
+      "D. 独立完整的虚拟机副本，与父机无关联"
+    ],
+    "correct_answer": "D"
+  },
+  {
+    "id": "question405516888",
+    "number": "34",
+    "type": "单选题",
+    "question": "虚拟机快照的核心作用是(        )",
+    "options": [
+      "A. 克隆虚拟机副本",
+      "B. 压缩虚拟机磁盘",
+      "C. 保存虚拟机当前状态，快速回滚",
+      "D. 永久备份虚拟机数据"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405516871",
+    "number": "35",
+    "type": "单选题",
+    "question": "安装VMware Workstation时，以下操作错误的是(        )",
+    "options": [
+      "A. 以管理员身份运行安装包",
+      "B. 直接覆盖安装旧版本无需卸载",
+      "C. 自定义安装路径避免系统盘爆满",
+      "D. 关闭本地防火墙和杀毒软件"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405516914",
+    "number": "36",
+    "type": "多选题",
+    "question": "虚拟机卡顿的优化方法有(        )",
+    "options": [
+      "A. 增加分配的内存和CPU核心数",
+      "B. 安装VMware Tools",
+      "C. 关闭虚拟机不必要的后台服务",
+      "D. 清理无用快照"
+    ],
+    "correct_answer": "ABCD"
+  },
+  {
+    "id": "question405516915",
+    "number": "37",
+    "type": "多选题",
+    "question": "以下操作会影响虚拟机数据安全的有(        )",
+    "options": [
+      "A. 随意调整虚拟磁盘配置",
+      "B. 强制关闭虚拟机电源",
+      "C. 未备份还原快照",
+      "D. 直接删除虚拟机文件"
+    ],
+    "correct_answer": "ABCD"
+  },
+  {
+    "id": "question405516902",
+    "number": "38",
+    "type": "多选题",
+    "question": "导入OVA文件的注意事项包括(        )",
+    "options": [
+      "A. 避免虚拟机名称重复",
+      "B. 校验OVA文件完整性",
+      "C. 导入后安装VMware Tools",
+      "D. 确保目标磁盘空间充足"
+    ],
+    "correct_answer": "ABCD"
+  },
+  {
+    "id": "question405516905",
+    "number": "39",
+    "type": "多选题",
+    "question": "桥接模式的适用场景有(        )",
+    "options": [
+      "A. 虚拟机需要独立公网IP(局域网内)",
+      "B. 仅本地测试无需外网",
+      "C. 虚拟机需要被局域网其他设备访问",
+      "D. 搭建服务器供外部测试"
+    ],
+    "correct_answer": "ACD"
+  },
+  {
+    "id": "question405516913",
+    "number": "40",
+    "type": "多选题",
+    "question": "虚拟机日常管理操作包括(        )",
+    "options": [
+      "A. 清理快照、释放磁盘空间",
+      "B. 备份虚拟机文件",
+      "C. 调整硬件配置(CPU、内存、磁盘)",
+      "D. 开机、关机、挂起、重启"
+    ],
+    "correct_answer": "ABCD"
+  },
+  {
+    "id": "question405516912",
+    "number": "41",
+    "type": "多选题",
+    "question": "以下关于快照和克隆的区别，说法正确的是(        )",
+    "options": [
+      "A. 快照可还原，克隆不可还原",
+      "B. 快照占用空间小，完整克隆占用空间大",
+      "C. 快照不生成独立虚拟机，克隆生成",
+      "D. 快照是状态保存，克隆是副本复制"
+    ],
+    "correct_answer": "BCD"
+  },
+  {
+    "id": "question405516903",
+    "number": "42",
+    "type": "多选题",
+    "question": "导出OVA的优势有(        )",
+    "options": [
+      "A. 保留虚拟机完整配置",
+      "B. 跨虚拟化平台兼容",
+      "C. 占用空间比原虚拟机小",
+      "D. 单文件便于传输迁移"
+    ],
+    "correct_answer": "ABD"
+  },
+  {
+    "id": "question405516901",
+    "number": "43",
+    "type": "多选题",
+    "question": "安装VMware Workstation前的准备工作有(        )",
+    "options": [
+      "A. 检查CPU是否支持硬件虚拟化",
+      "B. 卸载同类虚拟化软件",
+      "C. 开启主板虚拟化开关",
+      "D. 预留足够磁盘和内存空间"
+    ],
+    "correct_answer": "ABCD"
+  },
+  {
+    "id": "question405516907",
+    "number": "44",
+    "type": "多选题",
+    "question": "仅主机模式的适用场景有(        )",
+    "options": [
+      "A. 虚拟机需要对外提供服务",
+      "B. 虚拟机集群本地调试",
+      "C. 封闭内网测试",
+      "D. 禁止虚拟机访问外网"
+    ],
+    "correct_answer": "BCD"
+  },
+  {
+    "id": "question405516904",
+    "number": "45",
+    "type": "多选题",
+    "question": "VMware Tools安装成功后的效果有(        )",
+    "options": [
+      "A. 提升虚拟机磁盘读写性能",
+      "B. 实现物理机与虚拟机文件拖拽",
+      "C. 虚拟机屏幕自适应分辨率",
+      "D. 共享剪贴板"
+    ],
+    "correct_answer": "ABCD"
+  },
+  {
+    "id": "question405516908",
+    "number": "46",
+    "type": "多选题",
+    "question": "开机快照适用场景有(        )",
+    "options": [
+      "A. 需要快速还原运行状态",
+      "B. 测试软件不影响运行环境",
+      "C. 长期永久备份",
+      "D. 系统运行关键服务，不能关机"
+    ],
+    "correct_answer": "ABD"
+  },
+  {
+    "id": "question405516906",
+    "number": "47",
+    "type": "多选题",
+    "question": "NAT模式的优势包括(        )",
+    "options": [
+      "A. 虚拟机安全隔离，外部无法主动访问",
+      "B. 共享物理机网络，无需额外配置",
+      "C. 与物理机同网段便于调试",
+      "D. 支持端口转发映射服务"
+    ],
+    "correct_answer": "ABD"
+  },
+  {
+    "id": "question405516910",
+    "number": "48",
+    "type": "多选题",
+    "question": "完整克隆的适用场景有(        )",
+    "options": [
+      "A. 批量短期测试",
+      "B. 父机需要删除或迁移",
+      "C. 生产环境稳定部署",
+      "D. 长期使用独立虚拟机"
+    ],
+    "correct_answer": "BCD"
+  },
+  {
+    "id": "question405516911",
+    "number": "49",
+    "type": "多选题",
+    "question": "链接克隆的局限性有(        )",
+    "options": [
+      "A. 父机故障则克隆机无法使用",
+      "B. 不支持批量部署",
+      "C. 性能略低于完整克隆",
+      "D. 依赖父虚拟机存在"
+    ],
+    "correct_answer": "ACD"
+  },
+  {
+    "id": "question405516909",
+    "number": "50",
+    "type": "多选题",
+    "question": "关机快照的优势有(        )",
+    "options": [
+      "A. 快照文件体积小",
+      "B. 还原速度快",
+      "C. 保留内存运行状态",
+      "D. 数据一致性高"
+    ],
+    "correct_answer": "ABD"
+  }
+]

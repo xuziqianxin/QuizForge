@@ -1,0 +1,652 @@
+[
+  {
+    "id": "question405603766",
+    "number": "1",
+    "type": "单选题",
+    "question": "下列关于系统时钟与硬件时钟关系的描述，错误的是(        )",
+    "options": [
+      "A. 系统运行时，系统时钟与硬件时钟独立运行，可能出现偏差",
+      "B. 可以通过命令将系统时钟的时间同步到硬件时钟",
+      "C. 硬件时钟的精度高于系统时钟，系统时钟需依赖硬件时钟校准",
+      "D. 系统启动时，会从硬件时钟读取时间，初始化系统时钟"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405603794",
+    "number": "2",
+    "type": "单选题",
+    "question": "PTP协议中，“透明时钟(Transparent Clock)”的作用是(        )",
+    "options": [
+      "A. 检测PTP消息的完整性，防止消息篡改",
+      "B. 存储PTP消息的历史记录，用于故障排查",
+      "C. 作为主时钟和从时钟之间的转发设备，修正消息传输延迟",
+      "D. 替代主时钟，为从时钟提供时间同步服务"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405603796",
+    "number": "3",
+    "type": "单选题",
+    "question": "下列关于PTP同步流程的描述，正确的是(        )",
+    "options": [
+      "A. 主时钟与从时钟无需通信，通过硬件自动同步",
+      "B. 主时钟定期发送同步消息，从时钟接收后，计算自身与主时钟的时间偏差和传输延迟，进而修正时间",
+      "C. 透明时钟负责生成时间信息，转发给主时钟和从时钟",
+      "D. 从时钟主动向主时钟发送同步请求，主时钟返回时间信息，从时钟直接复制时间"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405603768",
+    "number": "4",
+    "type": "单选题",
+    "question": "下列哪种情况会导致系统时钟与硬件时钟出现偏差?(        )",
+    "options": [
+      "A. 主板纽扣电池电量充足",
+      "B. 启用了NTP协议进行时间同步",
+      "C. 系统正常运行，未进行任何时间同步操作",
+      "D. 系统处于休眠状态，未唤醒"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405603762",
+    "number": "5",
+    "type": "单选题",
+    "question": "下列关于时区的描述，正确的是(        )",
+    "options": [
+      "A. 同一时区的所有地区，地方时完全相同",
+      "B. 北京时间属于东八区，比世界协调时间(UTC)晚8小时",
+      "C. 全球共分为12个时区，每个时区相差1小时",
+      "D. 时区是根据经度划分的，以本初子午线为基准，向东向西各划分12个时区"
+    ],
+    "correct_answer": "D"
+  },
+  {
+    "id": "question405603790",
+    "number": "6",
+    "type": "单选题",
+    "question": "PTP协议中，“主时钟(Grandmaster Clock)”的作用是(        )",
+    "options": [
+      "A. 接收其他时钟的同步请求，提供时间同步服务",
+      "B. 负责转发PTP消息，扩大同步范围",
+      "C. 作为整个PTP网络的时间基准，向其他时钟广播时间信息",
+      "D. 用于检测PTP网络中的时间偏差，进行修正"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405603786",
+    "number": "7",
+    "type": "单选题",
+    "question": "当NTP客户端同步失败时，下列排查步骤最合理的是(        )① 检查客户端与NTP服务器的网络连通性(ping服务器地址)② 检查客户端NTP配置文件是否正确(服务器地址是否正确)③ 检查NTP服务是否正常运行(查看服务状态)④ 检查服务器端口是否开放(UDP 123端口)",
+    "options": [
+      "A. ③→②→①→④",
+      "B. ①→②→③→④",
+      "C. ②→①→④→③",
+      "D. ④→①→②→③"
+    ],
+    "correct_answer": "A"
+  },
+  {
+    "id": "question405603782",
+    "number": "8",
+    "type": "单选题",
+    "question": "NTP协议中，“服务器池(NTP Pool)”的作用是(        )",
+    "options": [
+      "A. 存储NTP服务器的历史时间数据，用于故障排查",
+      "B. 限制NTP服务器的并发连接数，防止过载",
+      "C. 用于同步不同时区的NTP服务器，保证全球时间一致",
+      "D. 提供一组公开的NTP服务器地址，方便客户端快速获取同步源"
+    ],
+    "correct_answer": "D"
+  },
+  {
+    "id": "question405603806",
+    "number": "9",
+    "type": "单选题",
+    "question": "下列关于chrony的优势，描述错误的是(        )",
+    "options": [
+      "A. 启动速度快，能快速完成首次时间同步",
+      "B. 网络不稳定时，同步精度比ntpd高",
+      "C. 支持离线时间同步，通过漂移补偿保持精度",
+      "D. 支持PTP协议，可实现微秒级同步"
+    ],
+    "correct_answer": "D"
+  },
+  {
+    "id": "question405603800",
+    "number": "10",
+    "type": "单选题",
+    "question": "chrony的配置文件默认路径是(        )",
+    "options": [
+      "A. /etc/ntp.conf",
+      "B. /etc/chrony.conf",
+      "C. /etc/chrony/chrony.conf",
+      "D. /var/chrony/chrony.conf"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405603783",
+    "number": "11",
+    "type": "单选题",
+    "question": "下列哪种因素会影响NTP时间同步的精度?(        )",
+    "options": [
+      "A. 以上都是",
+      "B. 服务器的层级(Stratum)",
+      "C. 网络延迟的稳定性",
+      "D. 客户端硬件时钟的精度"
+    ],
+    "correct_answer": "A"
+  },
+  {
+    "id": "question405603779",
+    "number": "12",
+    "type": "单选题",
+    "question": "下列关于NTP客户端配置的描述，正确的是(        )",
+    "options": [
+      "A. 配置多个NTP服务器时，客户端会选择精度最高的服务器进行同步",
+      "B. 客户端配置NTP服务器后，会立即同步时间，无需等待",
+      "C. 客户端只能同步一个NTP服务器，无法配置多个",
+      "D. 客户端无需配置NTP服务器，会自动搜索网络中的NTP服务器"
+    ],
+    "correct_answer": "A"
+  },
+  {
+    "id": "question405603773",
+    "number": "13",
+    "type": "单选题",
+    "question": "NTP协议的默认端口是(        )",
+    "options": [
+      "A. UDP 80",
+      "B. TCP 80",
+      "C. TCP 123",
+      "D. UDP 123"
+    ],
+    "correct_answer": "D"
+  },
+  {
+    "id": "question405603801",
+    "number": "14",
+    "type": "单选题",
+    "question": "下列哪个命令用于查看chrony的同步状态?(        )",
+    "options": [
+      "A. chrony status",
+      "B. chronyd status",
+      "C. chronyctl status",
+      "D. systemctl status chrony"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405603791",
+    "number": "15",
+    "type": "单选题",
+    "question": "下列关于PTP协议与NTP协议的区别，错误的是(        )",
+    "options": [
+      "A. PTP无需配置，可自动完成同步，NTP需要手动配置服务器",
+      "B. PTP和NTP都支持IPv4和IPv6",
+      "C. PTP同步精度高于NTP，NTP适合秒级精度，PTP适合微秒/纳秒级精度",
+      "D. PTP网络开销比NTP大，适合小规模、高精度需求场景"
+    ],
+    "correct_answer": "A"
+  },
+  {
+    "id": "question405603809",
+    "number": "16",
+    "type": "单选题",
+    "question": "下列关于时间同步流程的描述，正确的是(        )",
+    "options": [
+      "A. 系统启动→硬件时钟初始化→系统时钟同步硬件时钟→NTP/chrony同步系统时钟→同步硬件时钟",
+      "B. 系统启动→硬件时钟与系统时钟同时初始化→自动同步→无需后续操作",
+      "C. 系统启动→系统时钟同步网络时间→同步硬件时钟→硬件时钟为系统时钟提供校准",
+      "D. 系统启动→系统时钟初始化→NTP/chrony同步系统时钟→同步硬件时钟→硬件时钟保持运行"
+    ],
+    "correct_answer": "A"
+  },
+  {
+    "id": "question405603775",
+    "number": "17",
+    "type": "单选题",
+    "question": "下列关于NTP服务器类型的描述，错误的是(        )",
+    "options": [
+      "A. 一级服务器(Stratum 1)直接同步到基准时钟，精度最高",
+      "B. 客户端设备属于Stratum 3及以上，仅接收同步，不提供同步服务",
+      "C. 二级服务器(Stratum 2)从一级服务器同步，可向其他设备提供同步服务",
+      "D. 所有NTP服务器的精度一致，仅同步范围不同"
+    ],
+    "correct_answer": "D"
+  },
+  {
+    "id": "question405603770",
+    "number": "18",
+    "type": "单选题",
+    "question": "关于“夏令时”的描述，正确的是(        )",
+    "options": [
+      "A. 夏令时会改变硬件时钟的时间，与系统时钟无关",
+      "B. 夏令时是调整时区的一种方式，改变时区偏移量",
+      "C. 所有国家都实行夏令时，且执行时间一致",
+      "D. 夏令时是将时间调快1小时，目的是充分利用日照，节约能源"
+    ],
+    "correct_answer": "D"
+  },
+  {
+    "id": "question405603811",
+    "number": "19",
+    "type": "单选题",
+    "question": "下列关于NTP、PTP、chrony的关系，描述正确的是(        )",
+    "options": [
+      "A. PTP是NTP协议的升级版本，精度更高",
+      "B. chrony是NTP协议的一种实现，PTP是独立于NTP的协议",
+      "C. NTP和PTP均依赖chrony才能实现时间同步",
+      "D. chrony支持NTP和PTP协议，可替代ntpd和PTP客户端"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405603792",
+    "number": "20",
+    "type": "单选题",
+    "question": "PTP协议中，“从时钟(Slave Clock)”的特点是(        )",
+    "options": [
+      "A. 与主时钟双向同步，相互校准时间",
+      "B. 不参与时间同步，仅转发PTP消息",
+      "C. 可作为主时钟的备份，主时钟故障时自动切换",
+      "D. 向主时钟发送同步请求，接收主时钟的时间信息并同步"
+    ],
+    "correct_answer": "D"
+  },
+  {
+    "id": "question405603789",
+    "number": "21",
+    "type": "单选题",
+    "question": "PTP协议的核心优势是(        )",
+    "options": [
+      "A. 无需基准时钟，可自主同步",
+      "B. 同步精度高，可达到微秒级甚至纳秒级",
+      "C. 与NTP协议完全兼容，可直接替换NTP",
+      "D. 网络开销小，适合大规模部署"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405603793",
+    "number": "22",
+    "type": "单选题",
+    "question": "下列哪种场景最适合使用PTP协议?(        )",
+    "options": [
+      "A. 工业自动化生产线，要求设备时间同步精度达到微秒级",
+      "B. 互联网服务器，用于同步全球用户的时间",
+      "C. 办公网络，要求时间误差在1秒以内",
+      "D. 家庭网络，用于同步电脑、手机时间"
+    ],
+    "correct_answer": "A"
+  },
+  {
+    "id": "question405603802",
+    "number": "23",
+    "type": "单选题",
+    "question": "在chrony配置文件中，用于指定NTP服务器的指令是(        )",
+    "options": [
+      "A. sync server",
+      "B. time server",
+      "C. server",
+      "D. ntp server"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405603767",
+    "number": "24",
+    "type": "单选题",
+    "question": "时区划分中，东时区的时间与UTC的关系是(        )",
+    "options": [
+      "A. 东时区时间比UTC晚，时区数字越大，时间越晚",
+      "B. 东时区时间比UTC早，时区数字越大，时间越早",
+      "C. 东时区时间与UTC的差值不固定，随季节变化",
+      "D. 东时区时间与UTC一致，仅日期不同"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405603764",
+    "number": "25",
+    "type": "单选题",
+    "question": "硬件时钟(RTC)的主要特点是(        )",
+    "options": [
+      "A. 依赖操作系统运行，断电后停止计时",
+      "B. 精度极高，无需校准",
+      "C. 与系统时钟始终保持一致，不会出现偏差",
+      "D. 由主板上的纽扣电池供电，断电后仍能保持计时"
+    ],
+    "correct_answer": "D"
+  },
+  {
+    "id": "question405603780",
+    "number": "26",
+    "type": "单选题",
+    "question": "NTP协议支持的时间同步精度范围是(        )",
+    "options": [
+      "A. 分钟级",
+      "B. 毫秒级到秒级",
+      "C. 纳秒级",
+      "D. 微秒级"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405603787",
+    "number": "27",
+    "type": "单选题",
+    "question": "PTP协议的全称是(        )",
+    "options": [
+      "A. Priority Time Protocol(优先级时间协议)",
+      "B. Precision Time Packet(精确时间数据包)",
+      "C. Precision Time Protocol(精确时间协议)",
+      "D. Parallel Time Protocol(并行时间协议)"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405603765",
+    "number": "28",
+    "type": "单选题",
+    "question": "世界协调时间(UTC)的作用是(        )",
+    "options": [
+      "A. 是基于地球自转周期制定的，与原子钟无关",
+      "B. 替代当地时区时间，供所有国家统一使用",
+      "C. 仅用于网络时钟同步，与日常时间无关",
+      "D. 作为全球统一的时间基准，消除时区差异带来的混乱"
+    ],
+    "correct_answer": "D"
+  },
+  {
+    "id": "question405603803",
+    "number": "29",
+    "type": "单选题",
+    "question": "chrony支持的时间同步模式不包括(        )",
+    "options": [
+      "A. 服务器模式(为其他设备提供同步服务)",
+      "B. 客户端模式(同步其他NTP服务器)",
+      "C. 硬件同步模式(直接同步硬件时钟，无需网络)",
+      "D. 点对点模式(两个设备相互同步)"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405603804",
+    "number": "30",
+    "type": "单选题",
+    "question": "下列关于chrony“漂移补偿”功能的描述，正确的是(        )",
+    "options": [
+      "A. 用于补偿不同时区带来的时间差异",
+      "B. 用于补偿系统时钟的固有误差，即使离线也能保持时间精度",
+      "C. 用于补偿硬件时钟的偏差，使系统时钟与硬件时钟一致",
+      "D. 用于补偿网络延迟带来的时间偏差"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405603769",
+    "number": "31",
+    "type": "单选题",
+    "question": "硬件时钟(RTC)存储的时间格式是(        )",
+    "options": [
+      "A. UTC时间",
+      "B. 二进制格式的本地时间",
+      "C. 本地时区时间",
+      "D. 十进制格式的相对时间"
+    ],
+    "correct_answer": "A"
+  },
+  {
+    "id": "question405603810",
+    "number": "32",
+    "type": "单选题",
+    "question": "当Linux系统中，系统时钟与硬件时钟偏差较大时，下列操作步骤正确的是(        )① 使用chrony或ntpdate同步系统时钟到标准时间② 使用hwclock -w命令，将系统时钟同步到硬件时钟③ 使用hwclock -r命令，查看当前硬件时钟时间④ 确认系统时区配置正确",
+    "options": [
+      "A. ③→④→①→②",
+      "B. ④→③→①→②",
+      "C. ④→①→②→③",
+      "D. ①→②→③→④"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405603776",
+    "number": "33",
+    "type": "单选题",
+    "question": "NTP协议同步时间的核心原理是(        )",
+    "options": [
+      "A. 计算客户端与服务器之间的网络延迟，修正本地时间偏差",
+      "B. 客户端直接复制服务器的时间，覆盖本地时间",
+      "C. 通过硬件时钟同步，与网络延迟无关",
+      "D. 服务器定期向客户端发送时间指令，强制客户端同步"
+    ],
+    "correct_answer": "A"
+  },
+  {
+    "id": "question405603795",
+    "number": "34",
+    "type": "单选题",
+    "question": "PTP协议的版本中，目前应用最广泛的是(        )",
+    "options": [
+      "A. PTPv3",
+      "B. PTPv4",
+      "C. PTPv1",
+      "D. PTPv2(IEEE 1588-2008)"
+    ],
+    "correct_answer": "D"
+  },
+  {
+    "id": "question405603774",
+    "number": "35",
+    "type": "单选题",
+    "question": "NTP协议中，“ strata(层级)”的作用是(        )",
+    "options": [
+      "A. 表示NTP服务器与基准时钟的距离，strata 1为最高级(直接连接基准时钟)",
+      "B. 用于标识NTP数据包的类型，不同层级对应不同数据包",
+      "C. 区分NTP服务器的优先级，层级越高，优先级越高",
+      "D. 用于限制NTP服务器的同步范围，层级越大，同步范围越广"
+    ],
+    "correct_answer": "A"
+  },
+  {
+    "id": "question405603808",
+    "number": "36",
+    "type": "单选题",
+    "question": "某办公网络，设备数量较多，网络偶尔不稳定，要求设备时间误差在1秒以内，最适合的时间同步方案是(        )",
+    "options": [
+      "A. 部署PTP主时钟，所有设备作为从时钟同步",
+      "B. 部署一台chrony服务器，所有设备作为客户端同步该服务器",
+      "C. 仅使用硬件时钟，不进行网络同步",
+      "D. 所有设备直接同步公网NTP服务器"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405603778",
+    "number": "37",
+    "type": "单选题",
+    "question": "NTP协议中，“闰秒”的处理方式是(        )",
+    "options": [
+      "A. 需要手动在客户端配置闰秒，否则会出现时间偏差",
+      "B. 自动忽略闰秒，不影响时间同步",
+      "C. 闰秒会导致NTP同步失败，需重启同步服务",
+      "D. 由NTP服务器广播闰秒信息，客户端自动调整时间"
+    ],
+    "correct_answer": "D"
+  },
+  {
+    "id": "question405603772",
+    "number": "38",
+    "type": "单选题",
+    "question": "NTP协议的全称是(        )",
+    "options": [
+      "A. Network Time Protocol(网络时间协议)",
+      "B. Network Time Process(网络时间进程)",
+      "C. Network Time Priority(网络时间优先级)",
+      "D. Network Time Packet(网络时间数据包)"
+    ],
+    "correct_answer": "A"
+  },
+  {
+    "id": "question405603784",
+    "number": "39",
+    "type": "单选题",
+    "question": "NTP协议中，“广播模式”的特点是(        )",
+    "options": [
+      "A. 服务器定期向网络中广播时间信息，客户端被动接收并同步",
+      "B. 客户端与服务器双向通信，相互同步时间",
+      "C. 客户端主动向服务器发送同步请求，服务器响应",
+      "D. 仅用于一级服务器与基准时钟的同步"
+    ],
+    "correct_answer": "A"
+  },
+  {
+    "id": "question405603777",
+    "number": "40",
+    "type": "单选题",
+    "question": "下列哪种场景最适合使用NTP协议进行时间同步?(        )",
+    "options": [
+      "A. 工业控制网络，要求时间同步精度达到微秒级",
+      "B. 实时交易系统，要求时间同步精度达到纳秒级",
+      "C. 离线设备，无网络连接，需同步时间",
+      "D. 普通办公网络，要求设备时间误差在秒级以内"
+    ],
+    "correct_answer": "D"
+  },
+  {
+    "id": "question405603797",
+    "number": "41",
+    "type": "单选题",
+    "question": "chrony的核心作用是(        )",
+    "options": [
+      "A. 监控系统时钟和硬件时钟的运行状态，及时报警",
+      "B. 用于管理时区设置，转换不同时区的时间",
+      "C. 作为NTP/PTP客户端和服务器，实现时间同步",
+      "D. 替代硬件时钟，提供更高精度的计时功能"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405603799",
+    "number": "42",
+    "type": "单选题",
+    "question": "下列关于chrony与ntpd的区别，正确的是(        )",
+    "options": [
+      "A. chrony仅支持NTP协议，ntpd支持NTP和PTP协议",
+      "B. chrony在网络不稳定时，同步精度比ntpd更高",
+      "C. chrony的配置文件比ntpd更复杂，难以维护",
+      "D. ntpd支持离线时间同步，chrony不支持"
+    ],
+    "correct_answer": "B"
+  },
+  {
+    "id": "question405603771",
+    "number": "43",
+    "type": "单选题",
+    "question": "计算机启动时，系统时钟的初始化流程是(        )",
+    "options": [
+      "A. 系统时钟与硬件时钟同时启动，自动同步",
+      "B. 系统时钟先启动，再读取硬件时钟进行校准",
+      "C. 系统时钟无需初始化，直接使用网络时间",
+      "D. 硬件时钟先启动，系统时钟读取硬件时钟的时间后初始化"
+    ],
+    "correct_answer": "D"
+  },
+  {
+    "id": "question405603788",
+    "number": "44",
+    "type": "单选题",
+    "question": "PTP协议的默认端口是(        )",
+    "options": [
+      "A. TCP 320",
+      "B. UDP 123",
+      "C. UDP 319和UDP 320",
+      "D. TCP 319"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405603805",
+    "number": "45",
+    "type": "单选题",
+    "question": "下列命令用于重启chrony服务的是(        )",
+    "options": [
+      "A. chrony restart",
+      "B. chronyctl restart",
+      "C. systemctl restart chronyd",
+      "D. systemctl restart chrony"
+    ],
+    "correct_answer": "D"
+  },
+  {
+    "id": "question405603763",
+    "number": "46",
+    "type": "单选题",
+    "question": "计算机中的“系统时钟”指的是(        )",
+    "options": [
+      "A. 网络时钟协议同步的时钟，与互联网时间保持一致",
+      "B. 硬件设备自带的时钟，用于记录设备运行时长",
+      "C. 主板上的CMOS时钟，由电池供电，断电后仍能计时",
+      "D. 操作系统维护的软件时钟，依赖CPU运行，断电后丢失"
+    ],
+    "correct_answer": "D"
+  },
+  {
+    "id": "question405603807",
+    "number": "47",
+    "type": "单选题",
+    "question": "某工业控制网络，要求所有设备时间同步精度达到微秒级，且网络环境稳定，应选择哪种方案?(        )",
+    "options": [
+      "A. 使用NTP协议，配置一级NTP服务器",
+      "B. 使用chrony作为NTP客户端，同步公网NTP服务器",
+      "C. 使用PTP协议，部署主时钟和从时钟，搭配透明时钟",
+      "D. 仅依靠硬件时钟，定期手动同步"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405603781",
+    "number": "48",
+    "type": "单选题",
+    "question": "下列哪个命令是Linux系统中用于手动同步NTP时间的?(        )",
+    "options": [
+      "A. time sync",
+      "B. clock sync",
+      "C. ntpdate",
+      "D. ntp sync"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405603785",
+    "number": "49",
+    "type": "单选题",
+    "question": "关于NTPv4与NTPv3的区别，下列描述正确的是(        )",
+    "options": [
+      "A. NTPv4不支持IPv6，NTPv3支持IPv6",
+      "B. NTPv4无法与NTPv3服务器兼容，只能同步NTPv4服务器",
+      "C. NTPv4支持IPv6，精度比NTPv3更高",
+      "D. NTPv4的端口与NTPv3不同，使用TCP 123端口"
+    ],
+    "correct_answer": "C"
+  },
+  {
+    "id": "question405603798",
+    "number": "50",
+    "type": "单选题",
+    "question": "chrony由两个主要进程组成，分别是(        )",
+    "options": [
+      "A. chronyd和chronyctl",
+      "B. chrony和ntpd",
+      "C. chronyctl和ntpdate",
+      "D. chronyd和ntpdate"
+    ],
+    "correct_answer": "A"
+  }
+]
