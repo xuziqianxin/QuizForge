@@ -35,11 +35,20 @@ def safe_filename(html_path):
 
 # ---------- HTML 提取函数 ----------
 def extract_from_html(html_file_path):
+    """
+    智能识别作业详情/考试详情HTML，提取题目列表。
+    作业详情：直接提取正确答案。
+    考试详情：根据正误标记，正确则取用户答案，错误则设为null。
+    返回 (questions, wrong_numbers) 元组。
+    """
     with open(html_file_path, 'r', encoding='utf-8') as f:
         html = f.read()
     soup = BeautifulSoup(html, 'html.parser')
     questions = []
+    wrong_numbers = []
+
     question_divs = soup.find_all('div', class_=lambda x: x and 'questionLi' in x)
+    
     for qdiv in question_divs:
         qid = qdiv.get('id', '')
         h3 = qdiv.find('h3', class_='mark_name')
@@ -48,14 +57,25 @@ def extract_from_html(html_file_path):
         title_text = h3.get_text(strip=True)
         parts = title_text.split('.', 1)
         number = parts[0].strip() if len(parts) == 2 else ''
+
+        # 题型提取
         type_span = h3.find('span', class_='colorShallow')
+        question_type = ''
         if type_span:
             raw_type = type_span.get_text(strip=True)
-            question_type = raw_type.strip('()')
-        else:
-            question_type = ''
+            # 常见题型列表
+            type_match = re.search(r'(单选题|多选题|判断题|填空题|简答题|论述题|名词解释|计算题|综合题|不定项选择题|案例分析题)', raw_type)
+            if type_match:
+                question_type = type_match.group(1)
+            else:
+                # 如果未匹配，则去除括号、数字、逗号、空格等
+                question_type = re.sub(r'[()（）,，\d.\s分]', '', raw_type).strip()
+
+        # 题目内容
         qt_span = qdiv.find('span', class_='qtContent')
         question_text = qt_span.get_text(strip=True) if qt_span else ''
+
+        # 选项
         options = []
         ul = qdiv.find('ul', class_='mark_letter')
         if ul:
@@ -63,8 +83,30 @@ def extract_from_html(html_file_path):
                 opt_text = li.get_text(strip=True)
                 if opt_text:
                     options.append(opt_text)
-        right_answer_span = qdiv.find('span', class_='rightAnswerContent')
-        correct_answer = right_answer_span.get_text(strip=True) if right_answer_span else ''
+
+        # 我的答案
+        stu_ans_span = qdiv.find('span', class_='stuAnswerContent')
+        my_answer = stu_ans_span.get_text(strip=True) if stu_ans_span else ''
+
+        # 正确答案（作业详情页存在）
+        right_ans_span = qdiv.find('span', class_='rightAnswerContent')
+        if right_ans_span:
+            correct_answer = right_ans_span.get_text(strip=True)
+        else:
+            # 考试详情页，根据正误标记决定
+            judge_div = qdiv.find('div', class_='mark_judge_name')
+            is_correct = False
+            if judge_div:
+                if judge_div.find('span', class_='marking_dui'):
+                    is_correct = True
+                elif judge_div.find('span', class_='marking_cuo'):
+                    is_correct = False
+            if is_correct:
+                correct_answer = my_answer
+            else:
+                correct_answer = None
+                wrong_numbers.append(number)
+
         question_data = {
             'id': qid,
             'number': number,
@@ -74,7 +116,8 @@ def extract_from_html(html_file_path):
             'correct_answer': correct_answer
         }
         questions.append(question_data)
-    return questions
+
+    return questions, wrong_numbers
 
 # ---------- 文件系统辅助 ----------
 def clear_screen():
@@ -127,33 +170,33 @@ def load_all_questions_in_category(category):
 
 # ---------- 导入辅助 ----------
 def import_single_html(category, html_path, existing_files, auto_confirm=False):
-    """导入单个HTML文件，返回 (成功, 导入题目数, 文件名)"""
+    """导入单个HTML文件，返回 (成功状态, 导入题目数, 文件名, 错误题号列表)"""
     try:
-        questions = extract_from_html(html_path)
+        questions, wrong_nums = extract_from_html(html_path)
+        if wrong_nums:
+            print(f"  注意：以下题号答案错误，正确答案已置为 null：{', '.join(wrong_nums)}")
         if not questions:
             print(f"  跳过 {html_path}：未提取到题目。")
-            return False, 0, None
+            return False, 0, None, []
         base_name = safe_filename(html_path)
         if base_name in existing_files:
             if auto_confirm:
-                # 自动覆盖模式（用户选择“全部覆盖”时使用）
                 save_bank_file(category, base_name, questions)
-                return True, len(questions), base_name
+                return True, len(questions), base_name, wrong_numbers
             else:
                 confirm = input(f"  文件 {base_name}.json 已存在，是否覆盖？(y/n/a=全部覆盖/q=取消导入): ").strip().lower()
                 if confirm == 'a':
-                    # 返回特殊标记，让调用者切换为自动覆盖模式
-                    return 'auto', len(questions), base_name
+                    return 'auto', len(questions), base_name, wrong_nums
                 elif confirm == 'q':
-                    return False, 0, None
+                    return False, 0, None, []
                 elif confirm != 'y':
                     print(f"  跳过 {html_path}")
-                    return False, 0, None
+                    return False, 0, None, []
         save_bank_file(category, base_name, questions)
-        return True, len(questions), base_name
+        return True, len(questions), base_name, wrong_nums
     except Exception as e:
         print(f"  导入 {html_path} 失败：{e}")
-        return False, 0, None
+        return False, 0, None, []
 
 # ---------- 分类管理菜单 ----------
 def manage_category(category):
@@ -183,14 +226,20 @@ def manage_category(category):
 
             if os.path.isfile(path):
                 # 单文件导入
-                success, count, fname = import_single_html(category, path, files)
+                success, count, fname, wrong_list = import_single_html(category, path, files)
                 if success:
                     print(f"成功导入 {count} 题，保存为 {fname}.json")
+                    if wrong_list:
+                        print(f"  错误题号：{', '.join(wrong_list)}")
                 elif success == 'auto':
-                    save_bank_file(category, fname, extract_from_html(path))
+                    qs, wrong_list = extract_from_html(path)
+                    save_bank_file(category, fname, qs)
                     print(f"成功导入 {count} 题，保存为 {fname}.json (自动覆盖模式)")
+                    if wrong_list:
+                        print(f"  错误题号：{', '.join(wrong_list)}")
                 else:
                     print("导入取消或失败。")
+
             else:
                 # 文件夹导入
                 html_files = []
@@ -211,11 +260,13 @@ def manage_category(category):
                     if auto_mode:
                         # 自动覆盖模式
                         try:
-                            qs = extract_from_html(html_file)
+                            qs, wrong_list = extract_from_html(html_file)
                             if qs:
                                 fname = safe_filename(html_file)
                                 save_bank_file(category, fname, qs)
                                 print(f"  导入 {len(qs)} 题 -> {fname}.json (已覆盖)")
+                                if wrong_list:
+                                    print(f"    错误题号：{', '.join(wrong_list)}")
                                 total_imported += len(qs)
                                 existing.add(fname)
                             else:
@@ -223,17 +274,21 @@ def manage_category(category):
                         except Exception as e:
                             print(f"  导入失败：{e}")
                     else:
-                        success, count, fname = import_single_html(category, html_file, existing)
+                        success, count, fname, wrong_list = import_single_html(category, html_file, existing)
                         if success == 'auto':
                             auto_mode = True
                             # 保存当前文件
-                            qs = extract_from_html(html_file)
+                            qs, wrong_list = extract_from_html(html_file)
                             save_bank_file(category, fname, qs)
                             print(f"  导入 {len(qs)} 题 -> {fname}.json (已覆盖)")
+                            if wrong_list:
+                                print(f"    错误题号：{', '.join(wrong_list)}")
                             total_imported += len(qs)
                             existing.add(fname)
                         elif success:
                             print(f"  导入 {count} 题 -> {fname}.json")
+                            if wrong_list:
+                                print(f"    错误题号：{', '.join(wrong_list)}")
                             total_imported += count
                             existing.add(fname)
                 print(f"\n批量导入完成，共导入 {total_imported} 道题目。")
@@ -445,8 +500,7 @@ def run_quiz(questions, shuffle_enabled=False):
     for q in questions:
         if 'id' not in q:
             q['id'] = str(uuid.uuid4())
-            
-    # 随机打乱每道题的选项顺序
+
     if shuffle_enabled:
         for q in questions:
             new_options, new_correct = shuffle_options(q)
@@ -543,6 +597,7 @@ def run_quiz(questions, shuffle_enabled=False):
             if next_idx is not None:
                 current_idx = next_idx
 
+    # ---------- 答题结束，输出结果 ----------
     clear_screen()
     print("=" * 60)
     print("答题结束！答案对照：")
@@ -553,7 +608,7 @@ def run_quiz(questions, shuffle_enabled=False):
     for q in shuffled:
         ans = user_answers.get(q['id'], "未作答")
         final_user_answers.append(ans)
-        final_correct_answers.append(q['correct_answer'].upper())
+        final_correct_answers.append(q['correct_answer'].upper() if q['correct_answer'] else "未设置")
 
     format_answers_aligned(final_user_answers, "你的答案")
     format_answers_aligned(final_correct_answers, "正确答案")
@@ -562,6 +617,85 @@ def run_quiz(questions, shuffle_enabled=False):
     score_percent = correct_count / total * 100 if total > 0 else 0
     print(f"\n得分: {correct_count}/{total}  (正确率: {score_percent:.1f}%)")
     print("=" * 60)
+
+    # ---------- 结束后的交互菜单 ----------
+    while True:
+        print("\n请选择：")
+        print("1. 退出答题")
+        print("2. 查看作答详情")
+        choice = input("请输入选项 (1/2): ").strip()
+        if choice == '1':
+            break
+        elif choice == '2':
+            detail_idx = 0
+            detail_jump_back = None   # 浏览模式下的跳转历史
+            while True:
+                clear_screen()
+                q = shuffled[detail_idx]
+                user_ans = user_answers.get(q['id'], "未作答")
+                correct_ans = q['correct_answer'].upper() if q['correct_answer'] else "未设置"
+                is_correct = (user_ans == correct_ans)
+
+                print("=" * 60)
+                print(f"第 {detail_idx+1}/{total} 题")
+                print(f"题号: {q['number']}  {q['type']}")
+                print(f"题目: {q['question']}")
+                print("\n选项:")
+                for opt in q['options']:
+                    print(f"  {opt}")
+                print("-" * 40)
+                print(f"你的答案: {user_ans}")
+                print(f"正确答案: {correct_ans}")
+                print(f"结果: {'✓ 正确' if is_correct else '✗ 错误'}")
+                print("=" * 60)
+                print("\n导航: n/Enter 下一题 | p 上一题 | j 序号 | j back | q 返回菜单")
+                nav = input("请输入指令: ").strip().lower()
+
+                if nav == '' or nav == 'n':
+                    if detail_idx < total - 1:
+                        detail_idx += 1
+                    else:
+                        print("已经是最后一题。")
+                        input("按 Enter 继续...")
+                elif nav == 'p':
+                    if detail_idx > 0:
+                        detail_idx -= 1
+                    else:
+                        print("已经是第一题。")
+                        input("按 Enter 继续...")
+                elif nav.startswith('j'):
+                    parts = nav.split()
+                    if len(parts) == 2 and parts[1] == 'back':
+                        if detail_jump_back is None:
+                            print("没有可返回的上一个位置。")
+                            input("按 Enter 继续...")
+                        else:
+                            detail_idx = detail_jump_back
+                            detail_jump_back = None
+                    elif len(parts) == 2:
+                        try:
+                            target_display = int(parts[1])
+                        except ValueError:
+                            print("序号必须为数字。")
+                            input("按 Enter 继续...")
+                            continue
+                        if target_display < 1 or target_display > total:
+                            print(f"序号超出范围，应为 1 到 {total}。")
+                            input("按 Enter 继续...")
+                            continue
+                        detail_jump_back = detail_idx
+                        detail_idx = target_display - 1
+                    else:
+                        print("格式错误，应为: j 序号 或 j back")
+                        input("按 Enter 继续...")
+                elif nav == 'q':
+                    break
+                else:
+                    print("无效指令，请重新输入。")
+                    input("按 Enter 继续...")
+        else:
+            print("无效选项，请输入 1 或 2。")
+            input("按 Enter 继续...")
 
 def select_bank_files_in_category(category):
     files = list_bank_files(category)
