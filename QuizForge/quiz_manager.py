@@ -3,7 +3,19 @@ import os
 import random
 import re
 import sys
+from pathlib import Path  # 新增：中文路径支持
 from bs4 import BeautifulSoup
+
+# ---------- 可选高性能 JSON 加载 ----------
+try:
+    import orjson
+    def load_json_fast(filepath):
+        with open(filepath, 'rb') as f:
+            return orjson.loads(f.read())
+except ImportError:
+    def load_json_fast(filepath):
+        with open(filepath, 'r', encoding='utf-8') as f:
+            return json.load(f)
 
 # ---------- 全局配置 ----------
 BANKS_DIR = "question_banks"
@@ -35,12 +47,7 @@ def safe_filename(html_path):
 
 # ---------- HTML 提取函数 ----------
 def extract_from_html(html_file_path):
-    """
-    智能识别作业详情/考试详情HTML，提取题目列表。
-    作业详情：直接提取正确答案。
-    考试详情：根据正误标记，正确则取用户答案，错误则设为null。
-    返回 (questions, wrong_numbers) 元组。
-    """
+    """同原脚本，略"""
     with open(html_file_path, 'r', encoding='utf-8') as f:
         html = f.read()
     soup = BeautifulSoup(html, 'html.parser')
@@ -58,24 +65,19 @@ def extract_from_html(html_file_path):
         parts = title_text.split('.', 1)
         number = parts[0].strip() if len(parts) == 2 else ''
 
-        # 题型提取
         type_span = h3.find('span', class_='colorShallow')
         question_type = ''
         if type_span:
             raw_type = type_span.get_text(strip=True)
-            # 常见题型列表
             type_match = re.search(r'(单选题|多选题|判断题|填空题|简答题|论述题|名词解释|计算题|综合题|不定项选择题|案例分析题)', raw_type)
             if type_match:
                 question_type = type_match.group(1)
             else:
-                # 如果未匹配，则去除括号、数字、逗号、空格等
                 question_type = re.sub(r'[()（）,，\d.\s分]', '', raw_type).strip()
 
-        # 题目内容
         qt_span = qdiv.find('span', class_='qtContent')
         question_text = qt_span.get_text(strip=True) if qt_span else ''
 
-        # 选项
         options = []
         ul = qdiv.find('ul', class_='mark_letter')
         if ul:
@@ -84,16 +86,13 @@ def extract_from_html(html_file_path):
                 if opt_text:
                     options.append(opt_text)
 
-        # 我的答案
         stu_ans_span = qdiv.find('span', class_='stuAnswerContent')
         my_answer = stu_ans_span.get_text(strip=True) if stu_ans_span else ''
 
-        # 正确答案（作业详情页存在）
         right_ans_span = qdiv.find('span', class_='rightAnswerContent')
         if right_ans_span:
             correct_answer = right_ans_span.get_text(strip=True)
         else:
-            # 考试详情页，根据正误标记决定
             judge_div = qdiv.find('div', class_='mark_judge_name')
             is_correct = False
             if judge_div:
@@ -145,8 +144,7 @@ def list_bank_files(category):
 def load_bank_file(category, filename):
     path = os.path.join(category_path(category), f"{filename}.json")
     if os.path.exists(path):
-        with open(path, 'r', encoding='utf-8') as f:
-            return json.load(f)
+        return load_json_fast(path)  # 使用高性能加载
     return []
 
 def save_bank_file(category, filename, questions):
@@ -170,7 +168,7 @@ def load_all_questions_in_category(category):
 
 # ---------- 导入辅助 ----------
 def import_single_html(category, html_path, existing_files, auto_confirm=False):
-    """导入单个HTML文件，返回 (成功状态, 导入题目数, 文件名, 错误题号列表)"""
+    """同原脚本"""
     try:
         questions, wrong_nums = extract_from_html(html_path)
         if wrong_nums:
@@ -182,7 +180,7 @@ def import_single_html(category, html_path, existing_files, auto_confirm=False):
         if base_name in existing_files:
             if auto_confirm:
                 save_bank_file(category, base_name, questions)
-                return True, len(questions), base_name, wrong_numbers
+                return True, len(questions), base_name, wrong_nums
             else:
                 confirm = input(f"  文件 {base_name}.json 已存在，是否覆盖？(y/n/a=全部覆盖/q=取消导入): ").strip().lower()
                 if confirm == 'a':
@@ -200,6 +198,7 @@ def import_single_html(category, html_path, existing_files, auto_confirm=False):
 
 # ---------- 分类管理菜单 ----------
 def manage_category(category):
+    """同原脚本，保持不变"""
     while True:
         clear_screen()
         print(f"===== 管理分类：【{category}】 =====")
@@ -225,7 +224,6 @@ def manage_category(category):
                 continue
 
             if os.path.isfile(path):
-                # 单文件导入
                 success, count, fname, wrong_list = import_single_html(category, path, files)
                 if success:
                     print(f"成功导入 {count} 题，保存为 {fname}.json")
@@ -239,9 +237,7 @@ def manage_category(category):
                         print(f"  错误题号：{', '.join(wrong_list)}")
                 else:
                     print("导入取消或失败。")
-
             else:
-                # 文件夹导入
                 html_files = []
                 for root, dirs, filenames in os.walk(path):
                     for f in filenames:
@@ -258,7 +254,6 @@ def manage_category(category):
                 for html_file in html_files:
                     print(f"\n处理: {os.path.basename(html_file)}")
                     if auto_mode:
-                        # 自动覆盖模式
                         try:
                             qs, wrong_list = extract_from_html(html_file)
                             if qs:
@@ -277,7 +272,6 @@ def manage_category(category):
                         success, count, fname, wrong_list = import_single_html(category, html_file, existing)
                         if success == 'auto':
                             auto_mode = True
-                            # 保存当前文件
                             qs, wrong_list = extract_from_html(html_file)
                             save_bank_file(category, fname, qs)
                             print(f"  导入 {len(qs)} 题 -> {fname}.json (已覆盖)")
@@ -341,6 +335,7 @@ def manage_category(category):
             input("按 Enter 继续...")
 
 def category_manager_menu():
+    """同原脚本"""
     ensure_banks_dir()
     while True:
         clear_screen()
@@ -406,11 +401,9 @@ def category_manager_menu():
 
 # ---------- 答题模块 ----------
 def shuffle_options(q):
-    """随机打乱题目选项，返回新选项列表和新正确选项字母串"""
-    # 提取选项文本（去除字母前缀）
+    """同原脚本"""
     opt_texts = []
     for opt in q['options']:
-        # 匹配形如 "A. " 或 "A." 的前缀
         match = re.match(r'^[A-Z]\.\s*', opt)
         if match:
             text = opt[len(match.group()):].strip()
@@ -418,36 +411,33 @@ def shuffle_options(q):
             text = opt.strip()
         opt_texts.append(text)
 
-    # 生成新字母序列（数量与选项数相同）
     letters = [chr(ord('A') + i) for i in range(len(opt_texts))]
     shuffled_indices = list(range(len(opt_texts)))
     random.shuffle(shuffled_indices)
 
-    # 构建新选项列表（带字母前缀）
     new_options = []
     for i, idx in enumerate(shuffled_indices):
         letter = letters[i]
         new_options.append(f"{letter}. {opt_texts[idx]}")
 
-    # 映射：原始字母 -> 新字母
     orig_letters = [chr(ord('A') + i) for i in range(len(opt_texts))]
     mapping = {}
     for new_i, orig_i in enumerate(shuffled_indices):
         mapping[orig_letters[orig_i]] = letters[new_i]
 
-    # 转换正确答案
     orig_correct = q['correct_answer'].upper()
     new_correct_letters = []
     for ch in orig_correct:
         if ch in mapping:
             new_correct_letters.append(mapping[ch])
         else:
-            new_correct_letters.append(ch)  # 非字母保留
+            new_correct_letters.append(ch)
     new_correct = ''.join(new_correct_letters)
 
     return new_options, new_correct
 
 def format_answers_aligned(answers, label, items_per_row=ITEMS_PER_ROW):
+    """同原脚本"""
     rows = [answers[i:i+items_per_row] for i in range(0, len(answers), items_per_row)]
     num_cols = max(len(row) for row in rows) if rows else 0
     col_widths = [0] * num_cols
@@ -463,6 +453,7 @@ def format_answers_aligned(answers, label, items_per_row=ITEMS_PER_ROW):
         print(formatted_row.rstrip())
 
 def show_answered_list(answered_dict, question_map, shuffled):
+    """同原脚本"""
     clear_screen()
     print("=" * 50)
     print("已作答题目列表：")
@@ -493,6 +484,7 @@ def find_next_unanswered(shuffled, user_answers, start_idx):
     return None
 
 def run_quiz(questions, shuffle_enabled=False):
+    """同原脚本"""
     if not questions:
         print("题库为空，无法答题。")
         return
@@ -597,7 +589,6 @@ def run_quiz(questions, shuffle_enabled=False):
             if next_idx is not None:
                 current_idx = next_idx
 
-    # ---------- 答题结束，输出结果 ----------
     clear_screen()
     print("=" * 60)
     print("答题结束！答案对照：")
@@ -618,7 +609,6 @@ def run_quiz(questions, shuffle_enabled=False):
     print(f"\n得分: {correct_count}/{total}  (正确率: {score_percent:.1f}%)")
     print("=" * 60)
 
-    # ---------- 结束后的交互菜单 ----------
     while True:
         print("\n请选择：")
         print("1. 退出答题")
@@ -628,7 +618,7 @@ def run_quiz(questions, shuffle_enabled=False):
             break
         elif choice == '2':
             detail_idx = 0
-            detail_jump_back = None   # 浏览模式下的跳转历史
+            detail_jump_back = None
             while True:
                 clear_screen()
                 q = shuffled[detail_idx]
@@ -698,6 +688,7 @@ def run_quiz(questions, shuffle_enabled=False):
             input("按 Enter 继续...")
 
 def select_bank_files_in_category(category):
+    """同原脚本"""
     files = list_bank_files(category)
     if not files:
         print(f"分类 '{category}' 下没有任何题库文件。")
@@ -739,6 +730,7 @@ def select_bank_files_in_category(category):
     return selected_files
 
 def quiz_mode_menu():
+    """同原脚本"""
     ensure_banks_dir()
     categories = list_categories()
     if not categories:
@@ -786,12 +778,135 @@ def quiz_mode_menu():
             input("按 Enter 返回...")
             continue
 
-        # 询问是否打乱选项顺序
         choice_shuffle = input("是否随机打乱题目选项顺序？(y/n，默认 n): ").strip().lower()
         shuffle_enabled = (choice_shuffle == 'y')
 
         run_quiz(all_questions, shuffle_enabled)
         input("\n答题结束，按 Enter 返回分类选择...")
+
+# ========== 新增：题目搜索功能 ==========
+def search_in_banks(keyword):
+    """搜索内部题库：返回列表 [(category, filename, question), ...]"""
+    results = []
+    for cat in list_categories():
+        for fname in list_bank_files(cat):
+            questions = load_bank_file(cat, fname)
+            for q in questions:
+                if keyword in q.get('question', ''):
+                    results.append((cat, fname, q))
+    return results
+
+def search_external(path_str, keyword):
+    """搜索外部 JSON 文件/文件夹：返回列表 [(filepath, question), ...]"""
+    p = Path(path_str)
+    if not p.exists():
+        print(f"错误：路径不存在 - {path_str}")
+        return []
+    json_files = []
+    if p.is_file() and p.suffix.lower() == '.json':
+        json_files.append(p)
+    elif p.is_dir():
+        json_files.extend(p.glob('*.json'))
+        json_files.extend(p.glob('*.JSON'))
+    else:
+        print("错误：路径不是 JSON 文件也不是文件夹。")
+        return []
+    if not json_files:
+        print("未找到任何 .json 文件。")
+        return []
+
+    results = []
+    for file_path in json_files:
+        try:
+            questions = load_json_fast(str(file_path))
+            for q in questions:
+                if keyword in q.get('question', ''):
+                    results.append((str(file_path), q))
+        except Exception as e:
+            print(f"  加载文件失败 {file_path}: {e}")
+    return results
+
+def show_search_results(results, source_type='internal'):
+    """显示搜索结果并提供查看详情交互"""
+    if not results:
+        print("没有匹配的结果。")
+        input("\n按 Enter 返回...")
+        return
+
+    print(f"\n找到 {len(results)} 条匹配题目：")
+    for i, item in enumerate(results):
+        if source_type == 'internal':
+            cat, fname, q = item
+            print(f"  [{i+1}] [{cat}] {fname}.json | 题号 {q['number']} | {q['type']} | {q['question'][:40]}...")
+        else:
+            filepath, q = item
+            print(f"  [{i+1}] {filepath} | 题号 {q.get('number','?')} | {q.get('type','?')} | {q.get('question','')[:40]}...")
+
+    while True:
+        choice = input("\n输入序号查看详情，或按 Q 返回搜索菜单: ").strip()
+        if choice.upper() == 'Q':
+            return
+        if choice.isdigit():
+            idx = int(choice) - 1
+            if 0 <= idx < len(results):
+                clear_screen()
+                if source_type == 'internal':
+                    cat, fname, q = results[idx]
+                    print(f"分类: {cat}  文件: {fname}.json")
+                else:
+                    filepath, q = results[idx]
+                    print(f"来源文件: {filepath}")
+                print(f"题号: {q.get('number','?')}")
+                print(f"类型: {q.get('type','?')}")
+                print(f"题目: {q.get('question','')}")
+                print("选项:")
+                for opt in q.get('options', []):
+                    print(f"  {opt}")
+                print(f"正确答案: {q.get('correct_answer','未设置')}")
+                input("\n按 Enter 继续...")
+            else:
+                print("序号无效。")
+        else:
+            print("请输入数字序号或 Q。")
+
+def search_menu():
+    """题目搜索菜单"""
+    while True:
+        clear_screen()
+        print("===== 题目搜索 =====")
+        print("1. 搜索当前题库系统（所有分类）")
+        print("2. 搜索外部 JSON 文件/文件夹")
+        print("3. 返回主菜单")
+        choice = input("请选择: ").strip().upper()
+
+        if choice == '3':
+            break
+        elif choice == '1':
+            keyword = input("请输入搜索关键词: ").strip()
+            if not keyword:
+                print("关键词不能为空。")
+                input("按 Enter 继续...")
+                continue
+            print("正在搜索内部题库...")
+            results = search_in_banks(keyword)
+            show_search_results(results, source_type='internal')
+        elif choice == '2':
+            path_input = input("请输入 JSON 文件或文件夹路径: ").strip()
+            if not path_input:
+                print("路径不能为空。")
+                input("按 Enter 继续...")
+                continue
+            keyword = input("请输入搜索关键词: ").strip()
+            if not keyword:
+                print("关键词不能为空。")
+                input("按 Enter 继续...")
+                continue
+            print("正在搜索外部文件...")
+            results = search_external(path_input, keyword)
+            show_search_results(results, source_type='external')
+        else:
+            print("无效选项。")
+            input("按 Enter 继续...")
 
 # ---------- 主程序 ----------
 def main():
@@ -801,13 +916,16 @@ def main():
         print("===== 题库管理与答题系统 =====")
         print("1. 分类管理（导入/删除题库文件）")
         print("2. 答题模式")
-        print("3. 退出")
+        print("3. 题目搜索")          # 新增
+        print("4. 退出")
         choice = input("请选择: ").strip()
         if choice == '1':
             category_manager_menu()
         elif choice == '2':
             quiz_mode_menu()
-        elif choice == '3':
+        elif choice == '3':           # 新增
+            search_menu()
+        elif choice == '4':
             print("感谢使用，再见！")
             break
         else:
