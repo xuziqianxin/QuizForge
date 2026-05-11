@@ -1,0 +1,221 @@
+/* 所有普通 Screen 居中 */
+Screen {
+    align: center middle;
+}
+
+/* 模态遮罩层居中 */
+ModalScreen {
+    align: center middle;
+}
+
+/* 主菜单 */
+#main-menu {
+    width: 50;
+    height: auto;
+    border: solid $secondary;
+    padding: 1 2;
+}
+
+.menu-item {
+    margin: 1 0;
+}
+
+/* 输入对话框 */
+#dialog {
+    width: 40;
+    height: auto;
+    max-height: 60%;
+    border: thick $primary;
+    background: $surface;
+    padding: 1 2;
+}
+
+/* 确认对话框 */
+#confirm-dialog {
+    width: 40;
+    height: auto;
+    max-height: 50%;
+    border: thick $warning;
+    background: $surface;
+    padding: 1 2;
+}
+
+/* 按钮组容器（关键修复） */
+#confirm-buttons {
+    height: auto;          /* 不撑满父容器 */
+    align: center middle;
+}
+
+/* 按钮间距 */
+#dialog Button,
+#confirm-dialog Button {
+    margin: 1 2;
+}
+
+/* 其他业务界面边距 */
+#category-screen,
+#manage-screen,
+#quiz-category-screen,
+#file-select-screen,
+#quiz-area,
+#review-screen,
+#search-screen {
+    margin: 1 2;
+}
+
+#progress {
+    dock: top;
+    content-align: center middle;
+}
+
+/* 主菜单容器 */
+#main-menu-container {
+    width: auto;
+    height: auto;
+    align: center middle;
+}
+
+/* 菜单标题 */
+#title {
+    content-align: center middle;
+    text-style: bold;
+    padding: 1 0;
+}
+
+/* 菜单列表 */
+#main-menu-list {
+    width: 30;
+    height: auto;
+    border: solid $secondary;
+    background: $surface;
+    padding: 1 2;
+}
+
+/* 列表项鼠标悬停高亮（Textual 默认有，可自定义） */
+#main-menu-list ListItem:hover {
+    background: $primary 20%;
+}
+
+/* 文件树容器 */
+#tree-container {
+    width: 100%;
+    height: auto;
+}
+
+#left-panel {
+    width: 35%;
+    height: auto;
+    border: solid $secondary;
+    background: $surface;
+}
+
+#right-panel {
+    width: 65%;
+    height: auto;
+    border: solid $secondary;
+    background: $surface;
+}
+
+.panel-title {
+    text-style: bold;
+    padding: 1 2;
+    background: $primary-darken-2;
+    color: $text;
+}
+
+#tree-list {
+    height: 1fr;   /* 填充剩余空间 */
+}
+
+/* 答题选择界面顶部栏 */
+#top-bar {
+    height: auto;
+    padding: 0 2;
+    margin: 1 2 0 2;
+    border: solid $secondary;
+    background: $surface;
+    overflow: hidden;
+}
+
+#category-label {
+    height: 1;
+    width: 50%;
+    content-align: left middle;
+    text-style: bold;
+}
+
+#shuffle-bar {
+    height: auto;
+    align-horizontal: center;
+}
+
+/* 主体双栏容器 */
+#quiz-select-body {
+    height: 1fr;
+    margin: 1 2;
+}
+
+/* 左右面板复用 .panel-title 和 #left-panel/#right-panel 的宽度定义 */
+#quiz-select-body #left-panel {
+    width: 50%;
+    border: solid $secondary;
+    background: $surface;
+}
+
+#quiz-select-body #right-panel {
+    width: 50%;
+    border: solid $secondary;
+    background: $surface;
+}
+
+#list-hint {
+    padding: 0 2;
+    text-style: dim;
+}
+
+#shuffle-indicator {
+    height: 1;
+    width: 50%;
+    content-align: right middle;
+    text-style: bold;
+    color: $accent;
+}
+
+#start-prompt {
+    padding: 1 2;
+    height: auto;
+    content-align: center middle;
+    text-style: italic;
+}
+
+/* 搜索界面顶部栏 */
+#search-top {
+    height: auto;
+    padding: 0 2;
+    margin: 1 2 0 2;
+    border: solid $secondary;
+    background: $surface;
+}
+
+/* 搜索主体双栏 */
+#search-body {
+    height: 1fr;
+    margin: 1 2;
+}
+
+#search-body #left-panel {
+    width: 40%;
+    border: solid $secondary;
+    background: $surface;
+}
+
+#search-body #right-panel {
+    width: 60%;
+    border: solid $secondary;
+    background: $surface;
+}
+
+#search-hint {
+    padding: 0 2;
+    text-style: dim;
+}
