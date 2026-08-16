@@ -1,0 +1,5 @@
+textual>=8.2,<9
+requests>=2.31
+beautifulsoup4>=4.12
+qrcode>=7.4
+pycryptodome>=3.20
